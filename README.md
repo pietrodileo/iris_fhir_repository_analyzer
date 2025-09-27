@@ -199,5 +199,9 @@ The application will create the following tables in your IRIS database:
 
 Generated patient history varies upon the selected model and prompt. In the `output_examples` folder you can an example of three history generated for the same patient but with different models.
 
+### Example of Usage
+
+![Example of usage](pic/example_usage.mp4 "Example of usage")
+
 https://github.com/user-attachments/assets/74f328e6-b597-4f21-b7cb-0b8a6d2d2d72
 
