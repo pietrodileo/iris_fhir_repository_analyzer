@@ -11,7 +11,6 @@ from datetime import date
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# https://github.com/smart-on-fhir/generated-sample-data
 class FHIRAnalyzer:
     def __init__(self, folder_path: Optional[str] = None, output_path: Optional[str] = None):
         """

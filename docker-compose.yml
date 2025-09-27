@@ -15,6 +15,14 @@ services:
     environment:
       - ISC_DATA_DIRECTORY=/durable/iris
     # command: --password-file /durable/password/password.txt
+    # ------------------------------------------------------------------------------
+    # Entrypoint: this runs your entrypoint.sh, which will start IRIS,
+    # import your code into the current USER namespace, and then hand over
+    # control to the default IRIS entrypoint.
+    # Logs can be found in /opt/irisapp/logs/entrypoint.log and in Docker Desktop either.
+    # Logs can be print in terminal by using command: docker exec -it <container_name> cat /opt/irisapp/logs/entrypoint.log
+    # ------------------------------------------------------------------------------
+    entrypoint: ["/opt/irisapp/entrypoint.sh"]
 
   ollama:
     image: ollama/ollama:latest

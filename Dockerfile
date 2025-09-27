@@ -25,7 +25,7 @@ RUN chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} $APP_HOME
 # ------------------------------------------------------------------------------
 
 # Script that will be executed by entrypoint at runtime to run the installer 
-COPY iris.script .
+COPY iris.script $APP_HOME/iris.script
 
 # Startup script wrapper (will run at *container start*)
 COPY entrypoint.sh $APP_HOME/entrypoint.sh
@@ -42,16 +42,6 @@ RUN mkdir -p $APP_LOGS \
 # Switch back to the IRIS user to run entrypoint (never run IRIS as root!)
 # ------------------------------------------------------------------------------
 USER ${ISC_PACKAGE_MGRUSER}
-
-# ------------------------------------------------------------------------------
-# Entrypoint: this runs your entrypoint.sh, which will start IRIS,
-# import your code into the current USER namespace, and then hand over
-# control to the default IRIS entrypoint.
-# Logs can be found in /opt/irisapp/logs/entrypoint.log and in Docker Desktop either.
-# Logs can be print in terminal by using command: docker exec -it <container_name> cat /opt/irisapp/logs/entrypoint.log
-# ------------------------------------------------------------------------------
-ENTRYPOINT ["/opt/irisapp/entrypoint.sh"] 
-# can't use the $APP_HOME here
 
 # ------------------------------------------------------------------------------
 # Ports
