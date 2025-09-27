@@ -78,7 +78,7 @@ This project is a Streamlit-based web application for hybrid search and comprehe
    This will pull two images:
    - `ollama/ollama:latest`
    - `intersystems/iris-community:latest-cd`
-   
+
    Ollama image will install three models by default:
    - `llama3.2:1b`
    - `gemma2:2b`
@@ -89,15 +89,70 @@ This project is a Streamlit-based web application for hybrid search and comprehe
    docker compose up -d --build
    ```
 
-   Please ensure that Docker has completed all the downloads before approaching the next step. 
+   Please ensure that Docker has completed all the downloads before approaching the next step.
 
 6. **Create database by importing FHIR examples:**
-   Once Docker is running you can import FHIR examples to create a repository. FHIR messages in the `fhir_examples` directory have been synthetically generated and can be found at [this repository](https://github.com/smart-on-fhir/generated-sample-data). For this project a group of 1000 FHIR messages will be used.
+   Once Docker is running you can import FHIR examples to create a repository. FHIR bundles in the `fhir_examples` directory have been synthetically generated and can be found at [this repository](https://github.com/smart-on-fhir/generated-sample-data). 
 
-   To create the database run the following command, it will take approximately 5 minutes or less:
+   To create the database run the following command, it will take approximately a few minutes since at first start it will pull the sentence transformer. Then, More than 1000 FHIR bundles will be imported.
 
    ```bash
    uv run create_db.py
+   ```
+
+   These are the expected logs:
+
+   ```bash
+   2025-09-27 09:28:56,830 - INFO - IRIS connection established successfully
+   2025-09-27 09:28:56,837 - INFO - Use pytorch device_name: cpu
+   2025-09-27 09:28:56,837 - INFO - Load pretrained SentenceTransformer: pritamdeka/S-PubMedBert-MS-MARCO
+   2025-09-27 09:29:00,265 - INFO - Transformer model pritamdeka/S-PubMedBert-MS-MARCO loaded successfully
+   2025-09-27 09:29:00,266 - INFO - Connections established successfully
+   Table FHIRrepository dropped successfully.
+   Table CarePlan dropped successfully.
+   Table Procedures dropped successfully.
+   Table Condition dropped successfully.
+   Table Observation dropped successfully.
+   Table Immunization dropped successfully.
+   Table AllergyIntolerance dropped successfully.
+   Table Patient dropped successfully.
+   Table FHIRrepository created successfully.
+   Index patient_id_idx created successfully on FHIRrepository(patient_id).
+   Table Patient created successfully.
+   Index patient_id_idx created successfully on Patient(patient_id).
+   Index age_idx created successfully on Patient(age).
+   Index gender_idx created successfully on Patient(gender).
+   Created HNSW index description_vector_idx on Patient(description_vector)
+   Table SQLUser.AllergyIntolerance created successfully.
+   Index patient_id_idx created successfully on AllergyIntolerance(patient_id).
+   Table SQLUser.Immunization created successfully.
+   Index patient_id_idx created successfully on Immunization(patient_id).
+   Table SQLUser.Observation created successfully.
+   Index patient_id_idx created successfully on Observation(patient_id).
+   Table SQLUser.Condition created successfully.
+   Index patient_id_idx created successfully on Condition(patient_id).
+   Table SQLUser.Procedures created successfully.
+   Index patient_id_idx created successfully on Procedures(patient_id).
+   Table SQLUser.CarePlan created successfully.
+   Index patient_id_idx created successfully on CarePlan(patient_id).
+   Index patient_id_idx already exists
+   Index patient_id_idx already exists
+   Index age_idx already exists
+   Index gender_idx already exists
+   Table AllergyIntolerance already exists
+   Index patient_id_idx already exists
+   Table Immunization already exists
+   Index patient_id_idx already exists
+   Table Observation already exists
+   Index patient_id_idx already exists
+   Table Condition already exists
+   Index patient_id_idx already exists
+   Table Procedures already exists
+   Index patient_id_idx already exists
+   Table CarePlan already exists
+   Index patient_id_idx already exists
+   2025-09-27 09:29:02,977 - INFO - Tables created successfully
+   2025-09-27 09:29:24,613 - INFO - FHIR data imported successfully
    ```
 
 7. **Run the application:**
@@ -110,6 +165,10 @@ This project is a Streamlit-based web application for hybrid search and comprehe
 
 The application will create the following tables in your IRIS database:
 
+- `SQLUser.FHIRrepository` - Contains all the FHIR messages associated to a patient id
+
+![FHIRrepository](pic\FHIRrepository_created.png "FHIRrepository")
+
 - `SQLUser.Patient` - Patient demographics and descriptions with vector embeddings
 - `SQLUser.AllergyIntolerance` - Allergy and intolerance records
 - `SQLUser.Immunization` - Vaccination records  
@@ -118,17 +177,23 @@ The application will create the following tables in your IRIS database:
 - `SQLUser.Procedures` - Medical procedures and treatments
 - `SQLUser.CarePlan` - Treatment and care plans
 
+![Patient](pic\Patient_table_details.png "Patient")
+
 ## 🔧 Usage
 
-1. **Search Patients**: Enter natural language descriptions (e.g., "diabetes with cardiovascular issues")
-2. **Apply Filters**: Use sidebar filters to narrow results by demographics
-3. **Select Patient**: Choose one patient from search results to view detailed profile
-4. **Explore Records**: Browse medical records through organized tabs
-5. **Generate History**: Use AI to create comprehensive patient summaries
+1. **Search Patients**: Enter natural language descriptions (e.g., "diabetes with cardiovascular issues"). Use sidebar filters to narrow results by demographics. Click on "Search" button to perform an hybrid search
+![Search](pic\UI_pat_search_example.png "Search")
 
-## 🎯 Use Cases
+2. **Select Patient**: Choose one patient from search results to view detailed profile
+![Profile](pic\UI_patient_profile1.png "Profile")
 
-- **Clinical Research**: Search patients by complex medical criteria
-- **Case Studies**: Generate comprehensive patient summaries
-- **Medical Education**: Explore patient data patterns and trends  
-- **Care Coordination**: Review patient histories across multiple encounters
+3. **Explore Records**: Browse medical records through organized tabs
+![Profile2](pic\UI_patient_profile2.png "Profile2")
+
+4. **Generate History**: Edit the prompt if needed, then use ollama to create comprehensive patient summaries. Performance may vary upon your workstation since ollama run entirily locally on Docker container.
+![Prompt](pic\UI_pat_history_prompt.png "Prompt")
+
+5. **Generate History**: See the result
+![PatHistory](pic\UI_pat_history_results.png "PatHistory")
+
+Generated patient history varies upon the selected model and prompt. In the `output_examples` folder you can an example of three history generated for the same patient but with different models.

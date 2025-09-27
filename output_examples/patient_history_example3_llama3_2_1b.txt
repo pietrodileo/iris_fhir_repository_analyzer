@@ -1,0 +1,114 @@
+Patient Overview
+
+    Age: 45 years old
+    Sex: Female
+    Relevant demographics:
+
+    Birthdate: November 24, 1979
+    City: Quincy, MA
+    Country: United States
+    Deceased: Currently deceased (no date provided)
+
+    Allergies:
+
+    Category: Food, Clinical status: High, Type: Allergy
+    Vaccine code: Influenza, seasonal, injectable, preservative free (completed in 2016 and 2013)
+
+    Immunizations:
+
+    Status: Completed
+    Vaccine code: Influenza, seasonal, injectable, preservative free (completed in 2010-07-12 three times with a gap of 5 years between the third dose)
+
+    Immune date:
+    Vaccine code: Td (adult) preservative-free (completed once)
+    Immunity status: Completed
+
+    Conditions:
+
+    Code: Acute viral pharyngitis (disorder)
+    Onset: November 17, 2016
+    Verification status: None
+
+    Age: Not applicable
+    Date of onset: November 17, 2016
+    Clinical status: Null
+    Type: Disorder
+
+    Procedures:
+
+    Code: Documentation of current medications
+
+    No procedure date provided
+
+    Care Plans:
+
+    Activities: Angina self-management plan
+    Category: Self-management plan
+    CP end: None
+    CP start: February 8, 2007 (for coronary heart disease)
+    Status: Active
+
+    Observation Trends:
+
+    Code: Estimated Glomerular Filtration Rate
+
+    Obs date: August 4, 2018
+    Unit: mL/min/{1.73_m2}
+    Value: 60.0
+
+Medical Condition Timeline
+Acute Viral Pharyngitis (Disorder)
+
+    Onset: November 17, 2016
+    Verification status: None
+    Type: Disorder
+
+Coronary Heart Disease
+
+    Onset: February 8, 2007
+    Verification status: None
+
+Asthma
+
+    Onset: September 10, 1999 (not mentioned in the provided patient data)
+    Verification status: None
+
+Hypertension
+
+    Onset: August 4, 1998
+    Verification status: None
+
+Treatment and Procedure History
+
+    Medications:
+
+    Documentation of current medications was not completed.
+
+    Surgeries:
+
+    Code: None (no procedure dates mentioned or documented in the provided patient data)
+
+    Immunizations:
+
+    Td (adult) preservative-free (completed once)
+    Influenza, seasonal, injectable, preservative free (completed multiple times with gaps of 5 years between doses)
+
+Observations Summary
+
+    Estimated Glomerular Filtration Rate: 60.0 mL/min/{1.73_m2}
+    Blood Pressure: None
+    Body Mass Index: Not applicable
+    Body Weight: Not applicable
+    Oral Temperature: Not applicable (first observation, but likely to be noted in future observations)
+
+Risk Factors Analysis
+
+    Hypertension and Coronary Heart Disease: Unstable hypertension and a history of coronary heart disease may indicate an increased risk for cardiovascular events.
+    Asthma: A previous diagnosis indicates the need for asthma management and control.
+    Influenza Vaccination: Multiple doses of influenza vaccination completed, indicating protection against seasonal flu.
+
+Care Recommendations
+
+    Continue to monitor blood pressure and lipid profiles regularly.
+    Schedule regular follow-up appointments with a primary care physician to assess cardiovascular risk factors.
+    Consider stress management techniques, such as meditation or yoga, to manage hypertension and asthma symptoms.
