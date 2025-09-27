@@ -1,0 +1,33 @@
+services:
+  iris:
+    container_name: iris-patient-search
+    build:
+      context: .        # Build using local Dockerfile
+      dockerfile: Dockerfile
+    image: iris-patient-search:latest  # Custom project image, not the base one
+    init: true
+    restart: unless-stopped
+    volumes:
+      - ./storage:/durable
+    ports:
+      - "9092:52773"  # Management Portal / REST APIs
+      - "9091:1972"   # SuperServer port
+    environment:
+      - ISC_DATA_DIRECTORY=/durable/iris
+    # command: --password-file /durable/password/password.txt
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    pull_policy: always
+    tty: true
+    restart: unless-stopped
+    ports:
+      - 11424:11434
+    volumes:
+      - ./ollama_entrypoint.sh:/entrypoint.sh
+    environment:
+      - 'OLLAMA_MAX_LOADED_MODELS=4'
+      - 'OLLAMA_NUM_PARALLEL=4'
+      - 'OLLAMA_KEEP_ALIVE=-1'
+    entrypoint: ["/entrypoint.sh"]
