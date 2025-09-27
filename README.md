@@ -167,7 +167,7 @@ The application will create the following tables in your IRIS database:
 
 - `SQLUser.FHIRrepository` - Contains all the FHIR messages associated to a patient id
 
-![FHIRrepository](pic\FHIRrepository_created.png "FHIRrepository")
+![FHIRrepository](pic/FHIRrepository_created.png "FHIRrepository")
 
 - `SQLUser.Patient` - Patient demographics and descriptions with vector embeddings
 - `SQLUser.AllergyIntolerance` - Allergy and intolerance records
@@ -177,26 +177,27 @@ The application will create the following tables in your IRIS database:
 - `SQLUser.Procedures` - Medical procedures and treatments
 - `SQLUser.CarePlan` - Treatment and care plans
 
-![Patient](pic\Patient_table_details.png "Patient")
+![Patient](pic/Patient_table_details.png "Patient")
 
 ## 🔧 Usage
 
 1. **Search Patients**: Enter natural language descriptions (e.g., "diabetes with cardiovascular issues"). Use sidebar filters to narrow results by demographics. Click on "Search" button to perform an hybrid search
-![Search](pic\UI_pat_search_example.png "Search")
+![Search](pic/UI_pat_search_example.png "Search")
 
 2. **Select Patient**: Choose one patient from search results to view detailed profile
-![Profile](pic\UI_patient_profile1.png "Profile")
+![Profile](pic/UI_patient_profile1.png "Profile")
 
 3. **Explore Records**: Browse medical records through organized tabs
-![Profile2](pic\UI_patient_profile2.png "Profile2")
+![Profile2](pic/UI_patient_profile2.png "Profile2")
 
 4. **Generate History**: Edit the prompt if needed, then use ollama to create comprehensive patient summaries. Performance may vary upon your workstation since ollama run entirily locally on Docker container.
-![Prompt](pic\UI_pat_history_prompt.png "Prompt")
+![Prompt](pic/UI_pat_history_prompt.png "Prompt")
 
 5. **Generate History**: See the result
-![PatHistory](pic\UI_pat_history_results.png "PatHistory")
+![PatHistory](pic/UI_pat_history_results.png "PatHistory")
 
 
 Generated patient history varies upon the selected model and prompt. In the `output_examples` folder you can an example of three history generated for the same patient but with different models.
 
 https://github.com/user-attachments/assets/74f328e6-b597-4f21-b7cb-0b8a6d2d2d72
+
