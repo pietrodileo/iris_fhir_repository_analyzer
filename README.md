@@ -201,7 +201,5 @@ Generated patient history varies upon the selected model and prompt. In the `out
 
 ### Example of Usage
 
-![Example of usage](pic/example_usage.mp4 "Example of usage")
-
 https://github.com/user-attachments/assets/74f328e6-b597-4f21-b7cb-0b8a6d2d2d72
 
