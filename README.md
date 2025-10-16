@@ -1,6 +1,6 @@
-# IRIS Patient Search enabled through FHIR repository analysis
+# IRIS Patient Search via FHIR repository analysis
 
-This is a POC to demonstrate how InterSystems IRIS can be used to interact with an external language via the Python SDK (IRIS Native) to create and analyze a FHIR repository. Finally, the data is visualized using Streamlit, featuring hybrid search to locate the patient and a local LLM model to generate a patient history based on the extracted data.
+This proof of concept (PoC) demonstrates how InterSystems IRIS can integrate with external languages via the Python SDK (IRIS Native) to create and analyze a FHIR repository. Finally, the data is visualized with Streamlit, featuring hybrid semantic search to locate patients and a local LLM model to generate patient histories from extracted records.
 
 ## 🎯 Features
 
@@ -16,8 +16,8 @@ This project is a Streamlit-based web application for hybrid search and comprehe
   - 🩺 Medical Conditions
   - ⚕️ Procedures
   - 📋 Care Plans
-- **AI-Powered History Generation**: Generate comprehensive patient summaries using various LLM models
-- **Interactive Data Exploration**: Browse and analyze patient data with intuitive tabbed interface
+- **AI-Powered History Generation**: Generate comprehensive patient summaries using various local LLM models
+- **Interactive Data Exploration**: Navigate patient records with an intuitive interface
 
 ## 🚀 Quick Start
 
@@ -28,7 +28,10 @@ This project is a Streamlit-based web application for hybrid search and comprehe
 
 ### Installation
 
-1. **Clone and navigate to the project directory**
+1. **Clone the repository and navigate to the project directory**
+   ```bash
+    git clone https://github.com/pietrodileo/iris_fhir_repository_analyzer.git
+   ```
 
 2. **Create and activate a virtual environment**
    I like to us `uv` package manager but you can use whatever
@@ -85,6 +88,7 @@ This project is a Streamlit-based web application for hybrid search and comprehe
    - `gemma3:1b`
    You can configurate them by the `ollama_entrypoint.sh` file.
 
+  Build the images and run the containers:
    ```bash
    docker compose up -d --build
    ```
@@ -92,9 +96,9 @@ This project is a Streamlit-based web application for hybrid search and comprehe
    Please ensure that Docker has completed all the downloads before approaching the next step.
 
 6. **Create database by importing FHIR examples:**
-   Once Docker is running you can import FHIR examples to create a repository. FHIR bundles in the `fhir_examples` directory have been synthetically generated and can be found at [this repository](https://github.com/smart-on-fhir/generated-sample-data). 
+   Once Docker is running, you can import FHIR examples to create a repository. FHIR bundles in the `fhir_examples` directory have been synthetically generated and can be found at [this repository](https://github.com/smart-on-fhir/generated-sample-data). 
 
-   To create the database run the following command, it will take approximately a few minutes since at first start it will pull the sentence transformer. Then, More than 1000 FHIR bundles will be imported.
+   To create the database run the following command, it will take a few minutes since at first start it will pull the sentence transformer. Then, More than 1000 FHIR bundles will be imported.
 
    ```bash
    uv run create_db.py
@@ -165,16 +169,16 @@ This project is a Streamlit-based web application for hybrid search and comprehe
 
 The application will create the following tables in your IRIS database:
 
-- `SQLUser.FHIRrepository` - Contains all the FHIR messages associated to a patient id
+- `SQLUser.FHIRrepository` - Contains all the raw FHIR messages associated to a patient id
 
 ![FHIRrepository](pic/FHIRrepository_created.png "FHIRrepository")
 
 - `SQLUser.Patient` - Patient demographics and descriptions with vector embeddings
 - `SQLUser.AllergyIntolerance` - Allergy and intolerance records
 - `SQLUser.Immunization` - Vaccination records  
-- `SQLUser.Observation` - Lab results and vital signs
+- `SQLUser.Observation` - Lab results and observations
 - `SQLUser.Condition` - Medical conditions and diagnoses
-- `SQLUser.Procedures` - Medical procedures and treatments
+- `SQLUser.Procedures` - Medical procedures 
 - `SQLUser.CarePlan` - Treatment and care plans
 
 ![Patient](pic/Patient_table_details.png "Patient")
@@ -196,10 +200,12 @@ The application will create the following tables in your IRIS database:
 5. **Generate History**: See the result
 ![PatHistory](pic/UI_pat_history_results.png "PatHistory")
 
-
 Generated patient history varies upon the selected model and prompt. In the `output_examples` folder you can an example of three history generated for the same patient but with different models.
 
 ### Example of Usage
 
+The following video shows an example of usage of the application:
+
 https://github.com/user-attachments/assets/74f328e6-b597-4f21-b7cb-0b8a6d2d2d72
+
 
