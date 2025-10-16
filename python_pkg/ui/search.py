@@ -145,7 +145,7 @@ def execute_search(search_query, num_results, filters):
                 filters['age_range']
             )
             
-            results = iris_conn.query(query, parameters)
+            results = iris_conn.fetch(query, parameters)
             
             if not results.empty:
                 st.session_state.search_results = results

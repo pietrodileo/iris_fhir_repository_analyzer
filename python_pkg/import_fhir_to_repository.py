@@ -8,7 +8,7 @@ class FHIRImporter:
         Initialize the FHIR importer with the IRIS connection, folder path, and repository name.
 
         Args:
-            iris_conn (IRIS_connection): IRIS connection object
+            iris_conn (IRIStool): IRIS connection object
             folder_path (str, optional): Path to the folder containing FHIR JSON files. Defaults to "fhir_examples".
             repository_name (str, optional): Name of the repository in IRIS. Defaults to "FHIRrepository".
 
@@ -59,6 +59,6 @@ class FHIRImporter:
                             "patient_id": patient_uuid,
                             "fhir_bundle": json.dumps(data)  # serialize dict to JSON string
                         }
-                        self.conn.insert(table_name=self.repository_name, **input_data)
+                        self.conn.insert_row(table_name=self.repository_name, values=input_data)
         except Exception as e:
             raise Exception(f"Error importing FHIR data: {e}")

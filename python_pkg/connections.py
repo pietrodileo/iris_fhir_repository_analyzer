@@ -4,16 +4,16 @@ Connection utilities for IRIS database, transformer, and LLM services.
 
 import streamlit as st
 import logging
-from python_pkg.utils.iris_connector import IRIS_connection
+from python_pkg.utils.iristool import IRIStool
 from python_pkg.utils.transformer import Transformer
 from python_pkg.utils.ollama_request import ollama_request
 
 logger = logging.getLogger(__name__)
 
-def init_iris_connection(config) -> IRIS_connection:
+def init_iris_connection(config) -> IRIStool:
     """Initialize IRIS database connection."""
     try:
-        iris_conn = IRIS_connection(
+        iris_conn = IRIStool(
             host=config.IRIS_HOST,
             port=int(config.IRIS_PORT),
             namespace=config.IRIS_NAMESPACE,

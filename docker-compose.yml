@@ -10,7 +10,7 @@ services:
     volumes:
       - ./storage:/durable
     ports:
-      - "9092:52773"  # Management Portal / REST APIs
+      - "9092:52773"  # Management Portal / REST APIs - http://localhost:9092/csp/sys/UtilHome.csp
       - "9091:1972"   # SuperServer port
     environment:
       - ISC_DATA_DIRECTORY=/durable/iris

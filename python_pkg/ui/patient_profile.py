@@ -51,7 +51,7 @@ def render_medical_records_tabs(pat_row_id,config):
             try:
                 iris_conn = st.session_state.iris_conn
                 query = f"SELECT * FROM SQLUser.{table_name} WHERE patient_id = {pat_row_id}"
-                table_data = iris_conn.query(query)
+                table_data = iris_conn.fetch(query)
                 
                 if not table_data.empty:
                     st.write(f"Found {len(table_data)} records in {table_name}")
@@ -76,7 +76,7 @@ def render_records_summary(config):
     for table_name in config.MEDICAL_TABLES.keys():
         try:
             query = f"SELECT * FROM SQLUser.{table_name} WHERE patient_id = {pat_row_id}"
-            table_data = iris_conn.query(query)
+            table_data = iris_conn.fetch(query)
             st.session_state.tables[table_name] = table_data
             summary_data[table_name] = len(table_data) if not table_data.empty else 0
         except Exception as e:

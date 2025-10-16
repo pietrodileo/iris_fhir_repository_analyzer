@@ -1,4 +1,4 @@
-from .utils.iris_connector import IRIS_connection
+from .utils.iristool import IRIStool
 
 class IrisFHIRSchema:
     def __init__(self, iris_conn):
@@ -6,7 +6,7 @@ class IrisFHIRSchema:
         Initialize the IrisFHIRSchema object with an IRIS connection.
 
         Args:
-            iris_conn (IRIS_connection): The IRIS connection object to use for creating the FHIR schema.
+            iris_conn (IRIStool): The IRIS connection object to use for creating the FHIR schema.
             
         """
         self.conn = iris_conn
@@ -228,7 +228,7 @@ class IrisFHIRSchema:
         self.conn.quick_create_index(table_name=table_name, column_name="patient_id")
 
 if __name__ == "__main__":
-    iris_conn = IRIS_connection(host="127.0.0.1", port=9091, namespace='FHIROLLAMA', username='_SYSTEM', password='SYS')
-    iris_fhir_schema = IrisFHIRSchema(iris_conn)
-    iris_fhir_schema.init_schema()
-    iris_fhir_schema.create_tables()
+    with IRIStool(host="127.0.0.1", port=9091, namespace='FHIROLLAMA', username='_SYSTEM', password='SYS') as iris_conn:
+        iris_fhir_schema = IrisFHIRSchema(iris_conn)
+        iris_fhir_schema.init_schema()
+        iris_fhir_schema.create_tables()

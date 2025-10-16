@@ -7,7 +7,7 @@ class FHIRExtactor:
 
         Args:
             transformer (Transformer): Transformer object
-            iris_conn (IRIS_connection): IRIS connection object
+            iris_conn (IRIStool): IRIS connection object
 
         Returns:
             None
@@ -38,7 +38,7 @@ class FHIRExtactor:
                 print(f"Table {table_name} does not exist")
                 raise Exception(f"Table {table_name} does not exist")
 
-            df = self.iris_conn.query(f"SELECT patient_id, fhir_bundle FROM {table_name}")
+            df = self.iris_conn.fetch(f"SELECT patient_id, fhir_bundle FROM {table_name}")
             for bundle, patient_id in zip(df["fhir_bundle"], df["patient_id"]):
                 pat_info_str, pat_data = self.fhir_analyzer.analyze_fhir(bundle)
                 embedding = self.transformer.create_vector(pat_info_str)
@@ -78,7 +78,7 @@ class FHIRExtactor:
                                 "deceased_datetime": data["deceased_datetime"],
                             }
                             # insert data into the specific table
-                            self.iris_conn.insert(table_name=table_name, **input_data)
+                            self.iris_conn.insert_row(table_name=table_name, values=input_data)
                             pat_row_id = self.iris_conn.get_row_id(table_name="Patient", column_name="patient_id", value=patient_id)
                         else:
                             for element in data["elements"]:
@@ -88,7 +88,7 @@ class FHIRExtactor:
                                     **element
                                 }
                                 input_data.pop("resource_type")
-                                self.iris_conn.insert(table_name=table_name, **input_data)
+                                self.iris_conn.insert_row(table_name=table_name, values=input_data)
                 else:
                     print(f"No demographic data found for patient {patient_id}")
         except Exception as e:

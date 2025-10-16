@@ -1,7 +1,7 @@
 import iris
 import pandas as pd
 
-class IRIS_connection:
+class IRIStool:
     def __init__(self, host = "127.0.0.1", port = 1972, namespace = 'USER', username = '_SYSTEM', password = 'SYS'):
         """
         Initialize an IRIS connection object with the given parameters.
